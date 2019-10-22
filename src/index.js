@@ -1,11 +1,11 @@
 import trivia from './apis/trivia';
 
 let gamesList = document.getElementById('games-list');
-let playerSelect = document.getElementById('player-select');
-let player = playerSelect.value; 
+let playerSelect = document.getElementById('player-select'); 
 let locationSelect = document.getElementById('location-select');
 let playerGameList = document.getElementById('player-games-list');
-let playerSubmitBtn = document.getElementById('player-sbmt');
+let locationGameList = document.getElementById('location-games-list');
+
 
 let gamesArr = [];
 
@@ -52,6 +52,17 @@ async function getPlayerGames(playerId, callback) {
   })
 }
 
+//API call to get a list of games that were played at a single location
+async function getLocationGames(locationId, callback) {
+  const response = await trivia.get(`locations/games/${locationId}`);
+  while (locationGameList.lastChild){
+    locationGameList.removeChild(locationGameList.lastChild);
+  }
+  response.data.forEach((location) => {
+    callback(location);
+  })
+}
+
 ///////// ~~ END OF API CALLS ~~ ///////////
 
 
@@ -85,8 +96,18 @@ function displayPlayerGames(game) {
   playerGameList.appendChild(li);
 }
 
+//Callback to display the list of games for a single location
+function displayLocationGames(location) {
+  let li = document.createElement("li");
+  li.innerHTML = location.game_date.substring(0, 10) + " - " + location.location_name + " - " + location.place + " - " + location.points;
+  locationGameList.appendChild(li);
+}
+
 //Event listener to call the API to get a list of a single player's games when a new player is selected
 playerSelect.addEventListener("change", function(){getPlayerGames(document.getElementById('player-select').value, displayPlayerGames)});
+
+//Event Listener to call the API to get a list of a single location's games when a new location is selected
+locationSelect.addEventListener("change", function(){getLocationGames(document.getElementById('location-select').value, displayLocationGames)});
 
 getGames(displayGames);
 getPlayers(displayPlayers);
