@@ -5,6 +5,9 @@ let playerSelect = document.getElementById('player-select');
 let locationSelect = document.getElementById('location-select');
 let playerGameList = document.getElementById('player-games-list');
 let locationGameList = document.getElementById('location-games-list');
+let newPlayerSubmitBtn = document.getElementById('new-player-sbmt');
+let newPlayFName = document.getElementById('fName');
+let newPlayLName = document.getElementById('lName');
 
 
 let gamesArr = [];
@@ -44,6 +47,7 @@ async function getPlayerGames(playerId, callback) {
   const response = await trivia.get(`/players/games/${playerId}`);
   console.log(response.data)
   //Remove the current player's list if it is present
+  document.getElementById('player-name').innerHTML = "";
   while (playerGameList.lastChild){
     playerGameList.removeChild(playerGameList.lastChild);
   }
@@ -61,6 +65,20 @@ async function getLocationGames(locationId, callback) {
   response.data.forEach((location) => {
     callback(location);
   })
+}
+
+//API call to POST a new player
+async function addNewPlayer(fName, lName){
+  if(fName.length > 0 && lName.length >0){
+      await trivia.post('/players',{
+      fName: fName,
+      lName: lName
+    })
+  }else{
+    console.log('Must enter a name')
+  }
+    
+  
 }
 
 ///////// ~~ END OF API CALLS ~~ ///////////
@@ -91,8 +109,9 @@ function displayLocations(location) {
 
 //Callback to display the list of games for a single player
 function displayPlayerGames(game) {
+  document.getElementById('player-name').innerHTML = game.first_name + "'s games";
   let li = document.createElement("li");
-  li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.place + " - " + game.points + " - " + game.first_name;
+  li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.place + " - " + game.points;
   playerGameList.appendChild(li);
 }
 
@@ -108,6 +127,10 @@ playerSelect.addEventListener("change", function(){getPlayerGames(document.getEl
 
 //Event Listener to call the API to get a list of a single location's games when a new location is selected
 locationSelect.addEventListener("change", function(){getLocationGames(document.getElementById('location-select').value, displayLocationGames)});
+
+//Event listener to call the API to post a new player when the submit button is clicked
+newPlayerSubmitBtn.addEventListener("click", function(){addNewPlayer(newPlayFName.value, newPlayLName.value)});
+
 
 getGames(displayGames);
 getPlayers(displayPlayers);
