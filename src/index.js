@@ -10,6 +10,9 @@ let newPlayFName = document.getElementById('fName');
 let newPlayLName = document.getElementById('lName');
 let newLocSubmitBtn = document.getElementById('new-loc-sbmt');
 let newLocName = document.getElementById('locName');
+let locDiv = document.getElementById('loc-div');
+let fnameDiv = document.getElementById('fName-input');
+let lnameDiv = document.getElementById('lName-input');
 
 
 let gamesArr = [];
@@ -79,6 +82,12 @@ async function addNewPlayer(fName, lName){
     window.location.reload();
   }else{
     console.log('Must enter a name')
+    if(fName.length === 0){
+      fnameDiv.classList.add('error')
+    }
+    if(lName.length === 0){
+      lnameDiv.classList.add('error')
+    }
   }
 }
 
@@ -91,6 +100,7 @@ async function addNewLocation(locName){
     window.location.reload();
   }else{
     console.log('Must enter a location name')
+    locDiv.classList.add('error')
   }
 }
 
@@ -147,6 +157,10 @@ newPlayerSubmitBtn.addEventListener("click", function(){addNewPlayer(newPlayFNam
 //Event listener to call the API to post a new location when the submit button is clicked
 newLocSubmitBtn.addEventListener("click", function(){addNewLocation(newLocName.value)});
 
+//Event listeners to remove the error styling for inputs
+newLocName.addEventListener("keydown", function(){locDiv.classList.remove('error')});
+newPlayFName.addEventListener("keydown", function(){fnameDiv.classList.remove('error')});
+newPlayLName.addEventListener("keydown", function(){lnameDiv.classList.remove('error')});
 
 getGames(displayGames);
 getPlayers(displayPlayers);
