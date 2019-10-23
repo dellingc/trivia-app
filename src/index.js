@@ -8,6 +8,8 @@ let locationGameList = document.getElementById('location-games-list');
 let newPlayerSubmitBtn = document.getElementById('new-player-sbmt');
 let newPlayFName = document.getElementById('fName');
 let newPlayLName = document.getElementById('lName');
+let newLocSubmitBtn = document.getElementById('new-loc-sbmt');
+let newLocName = document.getElementById('locName');
 
 
 let gamesArr = [];
@@ -74,11 +76,22 @@ async function addNewPlayer(fName, lName){
       fName: fName,
       lName: lName
     })
+    window.location.reload();
   }else{
     console.log('Must enter a name')
   }
-    
-  
+}
+
+//API call to POST a new location
+async function addNewLocation(locName){
+  if(locName.length > 0){
+      await trivia.post('/locations',{
+      locationName: locName,
+    })
+    window.location.reload();
+  }else{
+    console.log('Must enter a location name')
+  }
 }
 
 ///////// ~~ END OF API CALLS ~~ ///////////
@@ -130,6 +143,9 @@ locationSelect.addEventListener("change", function(){getLocationGames(document.g
 
 //Event listener to call the API to post a new player when the submit button is clicked
 newPlayerSubmitBtn.addEventListener("click", function(){addNewPlayer(newPlayFName.value, newPlayLName.value)});
+
+//Event listener to call the API to post a new location when the submit button is clicked
+newLocSubmitBtn.addEventListener("click", function(){addNewLocation(newLocName.value)});
 
 
 getGames(displayGames);
