@@ -110,7 +110,7 @@ async function addNewLocation(locName){
 //Callback to display the list of games for all game API call
 function displayGames(game) {
   let li = document.createElement("li");
-  li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.place + " - " + game.points;
+  li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.players + " - " + game.place + " - " + game.points;
   gamesList.appendChild(li)
 }
 
