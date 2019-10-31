@@ -40,30 +40,29 @@
     </div>
 
     <div>
-        <form>
+        <div>
             <h2>Add a new game:</h2>
             <div class="ui input">
-                <input type="text" placeholder="YYYY-MM-DD">
+                <input type="text" id="ng-date" placeholder="YYYY-MM-DD">
             </div>
             <select class="ui dropdown" id="ng-location-select">
                 <option>Select Location</option>
             </select>
             <div class="ui input">
-                <input type="text" placeholder="Team Name">
+                <input type="text" id="ng-team-name" placeholder="Team Name">
             </div>
             <div class="ui input">
-                <input type="text" placeholder="Points">
+                <input type="text" id="ng-points" placeholder="Points">
             </div>
             <div class="ui input">
-                <input type="text" placeholder="Place">
+                <input type="text" id='ng-place' placeholder="Place">
             </div>
             <br>
-            <div>
-                <p></p>
+            <div id="player-checkboxes">
             </div>
             
-            <button type="submit" class="ui green button" id="new-loc-sbmt">Submit</button>
-        </form>
+            <button type="submit" class="ui green button" id="new-game-sbmt">Submit</button>
+        </div>
     </div>
 
     <div class="space-tb">
