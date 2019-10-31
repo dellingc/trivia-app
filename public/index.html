@@ -13,13 +13,24 @@
     <h1>Trivia Tracker</h1>
     <div>
         <h2>All Games</h2>
-        <ul id="games-list"></ul>
+        <!-- <ul id="games-list"></ul> -->
+        <table id="games-list">
+            <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Players</th>
+                <th>Place</th>
+                <th>Points</th>
+            </tr>
+        </table>
     </div>
 
     <div class="space-tb">
         <h2>Games By Player</h2>
         <h4 id="player-name"></h4>
-        <ul id="player-games-list"></ul>
+        <!-- <ul id="player-games-list"></ul> -->
+        <table id="player-games-list">
+            </table>
         <form id="players-form" >
             <select class="ui dropdown" id="player-select">
                 <option>Select Player</option>
@@ -30,9 +41,11 @@
     <div class="space-tb">
         <div>
             <h2>Games By Location</h2>
-            <ul id="location-games-list"></ul>
+            <!-- <ul id="location-games-list"></ul> -->
+            <table id="location-games-list">
+            </table>
         </div>
-        <div>
+        <div id="loc-selection">
             <select class="ui dropdown" id="location-select">
                 <option>Select Location</option>
             </select>
@@ -51,6 +64,7 @@
             <div class="ui input">
                 <input type="text" id="ng-team-name" placeholder="Team Name">
             </div>
+            <br>
             <div class="ui input">
                 <input type="text" id="ng-points" placeholder="Points">
             </div>
@@ -58,8 +72,12 @@
                 <input type="text" id='ng-place' placeholder="Place">
             </div>
             <br>
-            <div id="player-checkboxes">
+            <div id="players-container">
+                <h4 id="player-text">Select Players</h4>
+                <div id="player-checkboxes">
+                </div>    
             </div>
+            
             
             <button type="submit" class="ui green button" id="new-game-sbmt">Submit</button>
         </div>
@@ -76,7 +94,7 @@
         <button type="button" class="ui green button" id="new-player-sbmt">Submit</button>
     </div>
 
-    <div>
+    <div id="new-location">
         <h2>Add a new location:</h2>
         <div class="ui input" id="loc-div">
             <input type="text" placeholder="Location Name" id="locName">

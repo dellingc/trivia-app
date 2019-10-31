@@ -134,10 +134,30 @@ async function addNewGamePlayer(playerId, gameDate){
 
 
 //Callback to display the list of games for all game API call
+// function displayGames(game) {
+//   let li = document.createElement("li");
+//   li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.players + " - " + game.place + " - " + game.points;
+//   gamesList.appendChild(li)
+// }
+
 function displayGames(game) {
-  let li = document.createElement("li");
-  li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.players + " - " + game.place + " - " + game.points;
-  gamesList.appendChild(li)
+  let tr = document.createElement('tr');
+  let td1 = document.createElement('td');
+  td1.innerHTML = game.game_date.substring(0, 10);
+  let td2 = document.createElement('td');
+  td2.innerHTML = game.location_name;
+  let td3 = document.createElement('td');
+  td3.innerHTML = game.players;
+  let td4 = document.createElement('td');
+  td4.innerHTML = game.place;
+  let td5 = document.createElement('td');
+  td5.innerHTML = game.points;
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  tr.appendChild(td3);
+  tr.appendChild(td4);
+  tr.appendChild(td5);
+  gamesList.appendChild(tr)
 }
 
 //Callback to display the list of players for all player API call
@@ -187,23 +207,96 @@ function displayNgLocations(location) {
 }
 
 //Callback to display the list of games for a single player
+// function displayPlayerGames(game) {
+//   document.getElementById('player-name').innerHTML = game.first_name + "'s games";
+//   let li = document.createElement("li");
+//   li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.place + " - " + game.points;
+//   playerGameList.appendChild(li);
+// }
+
 function displayPlayerGames(game) {
-  document.getElementById('player-name').innerHTML = game.first_name + "'s games";
-  let li = document.createElement("li");
-  li.innerHTML = game.game_date.substring(0, 10) + " - " + game.location_name + " - " + game.place + " - " + game.points;
-  playerGameList.appendChild(li);
+  let tr1 = document.createElement('tr');
+  let th1 = document.createElement('th');
+  th1.innerHTML = "Date";
+  let th2 = document.createElement('th');
+  th2.innerHTML = "Location";
+  let th3 = document.createElement('th');
+  th3.innerHTML = "Place";
+  let th4 = document.createElement('th');
+  th4.innerHTML = "Points";
+  tr1.appendChild(th1);
+  tr1.appendChild(th2);
+  tr1.appendChild(th3);
+  tr1.appendChild(th4);
+
+  let tr2 = document.createElement('tr');
+  let td1 = document.createElement('td');
+  td1.innerHTML = game.game_date.substring(0, 10);
+  let td2 = document.createElement('td');
+  td2.innerHTML = game.location_name;
+  let td3 = document.createElement('td');
+  td3.innerHTML = game.place;
+  let td4 = document.createElement('td');
+  td4.innerHTML = game.points;
+  tr2.appendChild(td1);
+  tr2.appendChild(td2);
+  tr2.appendChild(td3);
+  tr2.appendChild(td4);
+
+  if(!playerGameList.hasChildNodes()){
+    playerGameList.appendChild(tr1);
+  }
+  playerGameList.appendChild(tr2);
 }
 
 //Callback to display message if player has no games
 function displayNoGameMsg() {
-  document.getElementById('player-name').innerHTML = "No Games";
+  let td = document.createElement('td');
+  td.innerHTML = "No Games"
+  playerGameList.appendChild(td)
+  //document.getElementById('player-name').innerHTML = "No Games";
 }
 
 //Callback to display the list of games for a single location
+// function displayLocationGames(location) {
+//   let li = document.createElement("li");
+//   li.innerHTML = location.game_date.substring(0, 10) + " - " + location.location_name + " - " + location.place + " - " + location.points;
+//   locationGameList.appendChild(li);
+// }
+
 function displayLocationGames(location) {
-  let li = document.createElement("li");
-  li.innerHTML = location.game_date.substring(0, 10) + " - " + location.location_name + " - " + location.place + " - " + location.points;
-  locationGameList.appendChild(li);
+  let tr1 = document.createElement('tr');
+  let th1 = document.createElement('th');
+  th1.innerHTML = "Date";
+  let th2 = document.createElement('th');
+  th2.innerHTML = "Location";
+  let th3 = document.createElement('th');
+  th3.innerHTML = "Place";
+  let th4 = document.createElement('th');
+  th4.innerHTML = "Points";
+  tr1.appendChild(th1);
+  tr1.appendChild(th2);
+  tr1.appendChild(th3);
+  tr1.appendChild(th4);
+
+  let tr = document.createElement('tr');
+  let td1 = document.createElement('td');
+  td1.innerHTML = location.game_date.substring(0, 10);
+  let td2 = document.createElement('td');
+  td2.innerHTML = location.location_name;
+  let td3 = document.createElement('td');
+  td3.innerHTML = location.place;
+  let td4 = document.createElement('td');
+  td4.innerHTML = location.points;
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  tr.appendChild(td3);
+  tr.appendChild(td4);
+
+  if(!locationGameList.hasChildNodes()){
+    locationGameList.appendChild(tr1);
+  }
+  locationGameList.appendChild(tr)
 }
 
 //Function to pull the players that are checked.
@@ -223,10 +316,10 @@ playerSelect.addEventListener("change", function(){getPlayerGames(document.getEl
 locationSelect.addEventListener("change", function(){getLocationGames(document.getElementById('location-select').value, displayLocationGames)});
 
 //Event listener to call the API to post a new player when the submit button is clicked
-newPlayerSubmitBtn.addEventListener("click", function(){addNewPlayer(newPlayFName.value, newPlayLName.value)});
+newPlayerSubmitBtn.addEventListener("click", function(){addNewPlayer(newPlayFName.value, newPlayLName.value); this.classList.add('active', 'inverted', 'inline', 'loader'), this.innerHTML = ""});
 
 //Event listener to call the API to post a new location when the submit button is clicked
-newLocSubmitBtn.addEventListener("click", function(){addNewLocation(newLocName.value)});
+newLocSubmitBtn.addEventListener("click", function(){addNewLocation(newLocName.value); this.classList.add('active', 'inverted', 'inline', 'loader'), this.innerHTML = ""});
 
 //Event listeners to remove the error styling for inputs
 newLocName.addEventListener("keydown", function(){locDiv.classList.remove('error')});
@@ -239,6 +332,8 @@ newGameSubmitBtn.addEventListener("click", async function(){
   getNgPlayers(newGameDate.value, addNewGamePlayer); 
   window.location.reload()
 });
+
+newGameSubmitBtn.addEventListener("click", function(){this.classList.add('active', 'inverted', 'inline', 'loader'), this.innerHTML = ""});
 
 
 getGames(displayGames);

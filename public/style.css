@@ -6,12 +6,51 @@
     margin-left: 10px;
 }
 
+#new-location {
+    margin-bottom: 20px;
+}
+
 #locName {
     border-color: #383734;
 }
 
 #fName {
     border-color: #383734;
+}
+
+
+#ng-date {
+    border-color: #383734;
+    margin: 5px;
+}
+
+#ng-location-select {
+    border-color: #383734;
+    margin: 5px;
+}
+
+#ng-team-name {
+    border-color: #383734;
+    margin: 5px;
+}
+
+#ng-points {
+    border-color: #383734;
+    margin: 5px;
+}
+
+#ng-place {
+    border-color: #383734;
+    margin: 5px;
+}
+
+#players-container {
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+#player-text {
+    margin-bottom: 5px;
 }
 
 #lName {
@@ -22,13 +61,33 @@
 
 #location-select {
     border-color: #383734;
+    border-radius: 3px;
 }
 
 #player-select {
     border-color: #383734;
+    border-radius: 3px;
 }
 
 .space-tb {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+#players-form {
+    margin-top: 15px;
+}
+
+#loc-selection {
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 15px;
+  }
+
+td {
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 0;
 }
