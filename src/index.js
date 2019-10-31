@@ -48,7 +48,7 @@ async function getLocations(callback) {
 }
 
 //API call to get a list of games that a single player played in
-async function getPlayerGames(playerId, callback) {
+async function getPlayerGames(playerId, callback, noGamesCallback) {
   const response = await trivia.get(`/players/games/${playerId}`);
   console.log(response.data)
   //Remove the current player's list if it is present
@@ -56,9 +56,14 @@ async function getPlayerGames(playerId, callback) {
   while (playerGameList.lastChild){
     playerGameList.removeChild(playerGameList.lastChild);
   }
-  response.data.forEach((game) => {
-    callback(game);
-  })
+  if(response.data.length > 0){
+    response.data.forEach((game) => {
+      callback(game);
+    })
+  }else{
+    noGamesCallback();
+  }
+  
 }
 
 //API call to get a list of games that were played at a single location
@@ -138,6 +143,11 @@ function displayPlayerGames(game) {
   playerGameList.appendChild(li);
 }
 
+//Callback to display message if player has no games
+function displayNoGameMsg() {
+  document.getElementById('player-name').innerHTML = "No Games";
+}
+
 //Callback to display the list of games for a single location
 function displayLocationGames(location) {
   let li = document.createElement("li");
@@ -146,7 +156,7 @@ function displayLocationGames(location) {
 }
 
 //Event listener to call the API to get a list of a single player's games when a new player is selected
-playerSelect.addEventListener("change", function(){getPlayerGames(document.getElementById('player-select').value, displayPlayerGames)});
+playerSelect.addEventListener("change", function(){getPlayerGames(document.getElementById('player-select').value, displayPlayerGames, displayNoGameMsg)});
 
 //Event Listener to call the API to get a list of a single location's games when a new location is selected
 locationSelect.addEventListener("change", function(){getLocationGames(document.getElementById('location-select').value, displayLocationGames)});

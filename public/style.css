@@ -1,0 +1,34 @@
+.main {
+    margin-left: 20px;
+}
+
+#new-loc-sbmt {
+    margin-left: 10px;
+}
+
+#locName {
+    border-color: #383734;
+}
+
+#fName {
+    border-color: #383734;
+}
+
+#lName {
+    border-color: #383734;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#location-select {
+    border-color: #383734;
+}
+
+#player-select {
+    border-color: #383734;
+}
+
+.space-tb {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

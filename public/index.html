@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Trivia App</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+
+</head>
+
+<body>
+    <div class='main'>
+    <h1>Trivia Tracker</h1>
+    <div>
+        <h2>All Games</h2>
+        <ul id="games-list"></ul>
+    </div>
+
+    <div class="space-tb">
+        <h2>Games By Player</h2>
+        <h4 id="player-name"></h4>
+        <ul id="player-games-list"></ul>
+        <form id="players-form" >
+            <select class="ui dropdown" id="player-select">
+                <option>Select Player</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="space-tb">
+        <div>
+            <h2>Games By Location</h2>
+            <ul id="location-games-list"></ul>
+        </div>
+        <div>
+            <select class="ui dropdown" id="location-select">
+                <option>Select Location</option>
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <form>
+            <h2>Add a new game:</h2>
+            <div class="ui input">
+                <input type="text" placeholder="YYYY-MM-DD">
+            </div>
+            <select class="ui dropdown" id="ng-location-select">
+                <option>Select Location</option>
+            </select>
+            <div class="ui input">
+                <input type="text" placeholder="Team Name">
+            </div>
+            <div class="ui input">
+                <input type="text" placeholder="Points">
+            </div>
+            <div class="ui input">
+                <input type="text" placeholder="Place">
+            </div>
+            <br>
+            <div>
+                <p></p>
+            </div>
+            
+            <button type="submit" class="ui green button" id="new-loc-sbmt">Submit</button>
+        </form>
+    </div>
+
+    <div class="space-tb">
+        <h2>Add a new player:</h2>
+        <div class="ui input" id="fName-input">
+            <input type="text" placeholder="First Name" id="fName">
+        </div>
+        <div class="ui input" id="lName-input">
+            <input type="text" placeholder="Last Name" id="lName">
+        </div>
+        <button type="button" class="ui green button" id="new-player-sbmt">Submit</button>
+    </div>
+
+    <div>
+        <h2>Add a new location:</h2>
+        <div class="ui input" id="loc-div">
+            <input type="text" placeholder="Location Name" id="locName">
+        </div>
+        <button type="submit" class="ui green button" id="new-loc-sbmt">Submit</button>
+    </div>
+
+    
+</div>
+    <script src="/scripts/bundle.js"></script>
+</body>
+
+</html>
