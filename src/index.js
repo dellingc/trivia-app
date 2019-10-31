@@ -28,7 +28,6 @@ let gamesArr = [];
 //API call to get a list of ALL games
 async function getGames(callback) {
   const response = await trivia.get('/games');
-  console.log(response.data)
   response.data.forEach((game) => {
     gamesArr.push(game);
     callback(game)
@@ -38,7 +37,6 @@ async function getGames(callback) {
 //API call to get a list of ALL players
 async function getPlayers(playerDisplay, playerCheckboxes) {
   const response = await trivia.get('/players');
-  console.log(response)
   response.data.forEach((player) => {
     playerDisplay(player);
     playerCheckboxes(player);
@@ -48,7 +46,6 @@ async function getPlayers(playerDisplay, playerCheckboxes) {
 //API call to get a list of ALL locations
 async function getLocations(callback, callback2) {
   const response = await trivia.get('/locations');
-  console.log(response)
   response.data.forEach((location) => {
     callback(location);
     callback2(location);
@@ -58,7 +55,6 @@ async function getLocations(callback, callback2) {
 //API call to get a list of games that a single player played in
 async function getPlayerGames(playerId, callback, noGamesCallback) {
   const response = await trivia.get(`/players/games/${playerId}`);
-  console.log(response.data)
   //Remove the current player's list if it is present
   document.getElementById('player-name').innerHTML = "";
   while (playerGameList.lastChild){
@@ -94,7 +90,6 @@ async function addNewPlayer(fName, lName){
     })
     window.location.reload();
   }else{
-    console.log('Must enter a name')
     if(fName.length === 0){
       fnameDiv.classList.add('error')
     }
@@ -112,19 +107,18 @@ async function addNewLocation(locName){
     })
     window.location.reload();
   }else{
-    console.log('Must enter a location name')
     locDiv.classList.add('error')
   }
 }
 
 //API call to POST a new game
-async function addNewGame(date, location, teamName, points, place) {
+async function addNewGame(date, location, teamName, place, points) {
   await trivia.post('/games', {
     gameDate: date,
     location: location,
     teamName: teamName,
-    points: points,
-    place: place
+    place: place,
+    points: points
   })
 }
 
@@ -241,7 +235,7 @@ newPlayLName.addEventListener("keydown", function(){lnameDiv.classList.remove('e
 
 //Event listener to call the API to post a new game and call the function that pulls in the game players/then calls the API to post each of them to the game_players table when the submit button is clicked
 newGameSubmitBtn.addEventListener("click", async function(){ 
-  await addNewGame(newGameDate.value, newGameLocation.value, newGameTeamName.value, newGamePoints.value, newGamePlace.value); 
+  await addNewGame(newGameDate.value, newGameLocation.value, newGameTeamName.value, newGamePlace.value, newGamePoints.value); 
   getNgPlayers(newGameDate.value, addNewGamePlayer); 
   window.location.reload()
 });
