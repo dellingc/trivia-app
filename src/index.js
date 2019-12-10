@@ -21,7 +21,6 @@ let newGameTeamName = document.getElementById('ng-team-name');
 let newGamePoints = document.getElementById('ng-points');
 let newGamePlace = document.getElementById('ng-place');
 
-let gamesArr = [];
 
 ///////// ~~ START OF API CALLS ~~ ///////////
 
@@ -29,7 +28,6 @@ let gamesArr = [];
 async function getGames(callback) {
   const response = await trivia.get('/games');
   response.data.forEach((game) => {
-    gamesArr.push(game);
     callback(game)
   })
  };
@@ -333,6 +331,7 @@ newGameSubmitBtn.addEventListener("click", async function(){
   window.location.reload()
 });
 
+//
 newGameSubmitBtn.addEventListener("click", function(){this.classList.add('active', 'inverted', 'inline', 'loader'), this.innerHTML = ""});
 
 
