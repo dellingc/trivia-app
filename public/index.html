@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class='main'>
+    div class='main'>
     <h1>Trivia Tracker</h1>
     <div>
         <h2>All Games</h2>
@@ -94,6 +94,8 @@
         <button type="button" class="ui green button" id="new-player-sbmt">Submit</button>
     </div>
 
+
+
     <div id="new-location">
         <h2>Add a new location:</h2>
         <div class="ui input" id="loc-div">
@@ -102,6 +104,15 @@
         <button type="submit" class="ui green button" id="new-loc-sbmt">Submit</button>
     </div>
 
+    <div class="space-tb">
+        <h2>Remove a player:</h2>
+        <div class="ui input" id="remove-player">
+            <select id="rmv-player-list">
+                <option>- Select Player -</option>
+            </select>
+        </div>
+        <button type="submit" class="ui red button" id="rmv-player-sbmt">Delete</button>
+    </div>
     
 </div>
     <script src="/scripts/bundle.js"></script>

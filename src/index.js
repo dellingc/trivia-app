@@ -20,6 +20,8 @@ let newGameLocation = document.getElementById('ng-location-select');
 let newGameTeamName = document.getElementById('ng-team-name');
 let newGamePoints = document.getElementById('ng-points');
 let newGamePlace = document.getElementById('ng-place');
+let removePlayerList = document.getElementById('rmv-player-list');
+let removePlayerBtn = document.getElementById('rmv-player-sbmt');
 
 
 ///////// ~~ START OF API CALLS ~~ ///////////
@@ -33,11 +35,12 @@ async function getGames(callback) {
  };
 
 //API call to get a list of ALL players
-async function getPlayers(playerDisplay, playerCheckboxes) {
+async function getPlayers(playerDisplay, playerCheckboxes, playerDropdown) {
   const response = await trivia.get('/players');
   response.data.forEach((player) => {
     playerDisplay(player);
     playerCheckboxes(player);
+    playerDropdown(player);
   })
 }
 
@@ -128,6 +131,11 @@ async function addNewGamePlayer(playerId, gameDate){
   })
 }
 
+//API call to DELETE a player
+async function removePlayer(playerId){
+  trivia.delete(`/players/${playerId}`)
+}
+
 ///////// ~~ END OF API CALLS ~~ ///////////
 
 
@@ -184,6 +192,15 @@ function addPlayerChecks(player) {
   checkDiv.appendChild(checkBox);
   checkDiv.appendChild(checkLabel);
   playerChecks.appendChild(checkDiv);
+}
+
+//Callback to add the list of players to the remove player dropdown
+function addPlayersToDropdown(player) {
+  let option = document.createElement("option");
+  option.value = `${player.player_id}`;
+  option.id = `${player.player_id}`;
+  option.innerHTML = `${player.first_name} ${player.last_name}`;
+  removePlayerList.appendChild(option)
 }
 
 //Callback to display the list of locations for all location API call
@@ -331,11 +348,19 @@ newGameSubmitBtn.addEventListener("click", async function(){
   window.location.reload()
 });
 
-//
+//Event listener to submit a new game
 newGameSubmitBtn.addEventListener("click", function(){this.classList.add('active', 'inverted', 'inline', 'loader'), this.innerHTML = ""});
 
+//Event listener to call the API to delete a player
+removePlayerBtn.addEventListener("click", async function(){
+  if(confirm(`Are you sure you want to delete ${removePlayerList.options[removePlayerList.selectedIndex].text}?`)){
+    await removePlayer(removePlayerList.value); 
+    window.location.reload();
+  }
+  
+})
 
 getGames(displayGames);
-getPlayers(displayPlayers, addPlayerChecks);
+getPlayers(displayPlayers, addPlayerChecks, addPlayersToDropdown);
 getLocations(displayLocations, displayNgLocations);
 
